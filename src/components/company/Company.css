@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+.company {
+  display: flex;
+  flex-wrap: wrap;
+  height: 80px;
+  width: 100%;
+  font-family: 'ArialMT', 'Arial';
+  margin: 10px 0;
+}
+
+.company-details {
+  display: flex;
+  flex: 1;
+  padding: 8px;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgray;
+}
+
+.company-details-name {
+  font-weight: 700;
+  font-style: normal;
+  font-size: 18px;
+}
+
+.company-details-country {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13px;
+}
+
+.company-details-price {
+  font-weight: 700;
+  font-style: normal;
+  font-size: 14px;
+  color: #333333;
+}
+
+.company-logo {
+  width: 80px;
+  height: 100%;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0 2px;
+}
+
+.company img {
+  margin: 8px;
+  width: 64px;
+}
