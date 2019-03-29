@@ -11,9 +11,21 @@ export default class Company extends React.Component {
           <img src={company.logo} alt={company.name}/>
         </div>
         <div className="company-details">
-          <div className="company-details-row company-details-name">{company.name}</div>
-          <div className="company-details-row company-details-country">{company.country}</div>
+          <div className="company-details-row company-details-name">
+            <span>{company.name} </span>
+            <span>{company.symbol}</span>
+          </div>
+          <div className="company-details-row company-details-country">
+            <span>{company.country} </span>
+            <span>{company.marketOpen}</span>
+            <span> - </span>
+            <span>{company.currency} </span>
+            <span>{company.timezone}</span>
+          </div>
           <div className="company-details-row company-details-price">{company.price}</div>
+        </div>
+        <div>
+          <button onClick={() => this.props.removeCompany(company)}>x</button>
         </div>
       </div>
     );
