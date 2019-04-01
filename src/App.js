@@ -81,7 +81,7 @@ class App extends Component {
             <a href="#" onClick={() => this.tabs(1)}>Companies</a>
           </div>
         </div>
-        <div class="container-body">
+        <div className="container-body">
           {this.renderContent()}
         </div>
       </div>

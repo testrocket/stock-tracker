@@ -1,8 +1,8 @@
 .companies {
-  font-family: 'Arial-BoldMT', 'Arial Bold', 'Arial';
   padding: 10px;
   margin: 0px auto;
   width: 900px;
+  font-family: 'ArialMT', 'Arial';
 }
 
 .companies-title {
@@ -10,4 +10,8 @@
   font-style: normal;
   font-size: 20px;
   color: #333333;
+}
+
+.companies-empty {
+  margin-top: 20px;
 }

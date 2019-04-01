@@ -5,9 +5,15 @@ import './Companies.css';
 export default class Companies extends React.Component {
 
   companies() {
-    return this.props.companies.map((company, index) =>
-      <Company key={index} company={company} removeCompany={() => this.props.removeCompany(company)} />
-    );
+    if (this.props.companies.length) {
+      return this.props.companies.map((company, index) =>
+        <Company key={index} company={company} removeCompany={() => this.props.removeCompany(company)} />
+      );
+    }
+    return (
+      <div className="companies-empty">There are no companies yet.&nbsp;
+        <a href="">Track your first company.</a>
+      </div>);
   }
 
   render() {
