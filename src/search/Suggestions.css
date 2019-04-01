@@ -1,0 +1,9 @@
+.suggestions-list {
+  list-style-type: none;
+  font-size: 20px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.suggestions-list li {
+  cursor: pointer;
+}

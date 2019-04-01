@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/company/Companies';
+import Search from './search/Search';
 
 const companies = [
   {
@@ -43,6 +44,7 @@ class App extends Component {
     return (
       <div className="App">
         <Companies companies={companies}/>
+        <Search />
       </div>
     );
   }
