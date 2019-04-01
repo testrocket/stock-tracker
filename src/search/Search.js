@@ -23,7 +23,7 @@ class Search extends Component {
         this.setState({
           results: results.bestMatches
         })
-      }).catch(error => console.log('Failed to fetch company: ', {error}));
+      }).catch(error => console.log('Failed to fetch company: ', { error }));
   }
 
   handleInputChange() {
@@ -39,14 +39,16 @@ class Search extends Component {
   render() {
     return (
       <div className="search">
-        <form>
+        <div>Company symbol</div>
+        <div>
           <input
-            placeholder="Search for..."
+            placeholder="Company symbol"
             ref={input => this.inputField = input}
             onChange={() => this.handleInputChangeDounced()}
           />
-          <Suggestions results={this.state.results} suggestionSelected={this.props.suggestionSelected} />
-        </form>
+        </div>
+        <div>Provide the stock exchange symbol of a company you want to track</div>
+        <Suggestions results={this.state.results} suggestionSelected={this.props.suggestionSelected} />
       </div>
     )
   }

@@ -5,6 +5,8 @@ import Search from './search/Search';
 import CompanyService from './components/company/CompanyService';
 import LogoService from './search/LogoService';
 import { first } from 'lodash';
+import CompanySearchService from './search/CompanySearchService';
+import { get } from 'lodash';
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +21,12 @@ class App extends Component {
   }
 
   suggestionSelected = (company) => {
-    LogoService.loadLogo(company['2. name']).then(logoData => {
+    const promises = [LogoService.loadLogo(company['2. name']),
+      CompanySearchService.globalQuote(company['1. symbol'])];
+
+    Promise.all(promises).then(results => {
+      const logoData = results[0];
+      const quote = results[1];
       const firstLogoData = first(logoData);
 
       CompanyService.addCompany({
@@ -32,13 +39,13 @@ class App extends Component {
         marketClose: company['6. marketClose'],
         timezone: company['7. timezone'],
         currency: company['8. currency'],
-        price: 100
+        price: get(quote, ['Global Quote', '05. price']) || 0
       });
 
       this.setState({
         companies: CompanyService.loadCompanies()
       });
-    });
+    })
   }
 
   removeCompany(company) {

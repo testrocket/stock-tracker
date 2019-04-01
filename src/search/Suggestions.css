@@ -6,4 +6,17 @@
 
 .suggestions-list li {
   cursor: pointer;
+  margin: 5px;
+}
+
+.track-button {
+  width: 100px;
+  height: 40px;
+  font-family: 'Arial-BoldMT', 'Arial Bold', 'Arial';
+  font-weight: 700;
+  font-style: normal;
+  font-size: 14px;
+  color: #FFFFFF;
+  background-color: rgba(0, 153, 255, 1);
+  border-width: 0;
 }
