@@ -69,7 +69,7 @@ class App extends Component {
 
   tabs(index) {
     this.setState({
-      trackNewCompany: !!index
+      trackNewCompany: index === 0
     })
   }
 

@@ -20,10 +20,13 @@ export default class Company extends React.Component {
             <span>{company.region} </span>
             <span>{company.marketOpen}</span>
             <span> - </span>
-            <span>{company.currency} </span>
+            <span>{company.marketClose} </span>
             <span>{company.timezone}</span>
           </div>
-          <div className="company-details-row company-details-price">{company.price}
+          <div className="company-details-row company-details-price">
+            <span>{company.price}</span>
+            <span> </span>
+            <span>{company.currency}</span>
             <QuoteChange change={company.change} changePercent={company.changePercent} />
           </div>
         </div>
