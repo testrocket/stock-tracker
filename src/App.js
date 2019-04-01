@@ -4,16 +4,16 @@ import Companies from './components/company/Companies';
 import Search from './search/Search';
 import CompanyService from './components/company/CompanyService';
 import LogoService from './search/LogoService';
-import { first } from 'lodash';
 import CompanySearchService from './search/CompanySearchService';
-import { get } from 'lodash';
+import { get, first } from 'lodash';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      companies: CompanyService.loadCompanies()
+      companies: CompanyService.loadCompanies(),
+      trackNewCompany: true,
     };
 
     this.suggestionSelected = this.suggestionSelected.bind(this);
@@ -22,7 +22,7 @@ class App extends Component {
 
   suggestionSelected = (company) => {
     const promises = [LogoService.loadLogo(company['2. name']),
-      CompanySearchService.globalQuote(company['1. symbol'])];
+    CompanySearchService.globalQuote(company['1. symbol'])];
 
     Promise.all(promises).then(results => {
       const logoData = results[0];
@@ -43,7 +43,8 @@ class App extends Component {
       });
 
       this.setState({
-        companies: CompanyService.loadCompanies()
+        companies: CompanyService.loadCompanies(),
+        trackNewCompany: false
       });
     })
   }
@@ -56,11 +57,32 @@ class App extends Component {
     });
   }
 
+  renderContent() {
+    if (this.state.trackNewCompany) {
+      return <Search suggestionSelected={this.suggestionSelected} />;
+    }
+    return <Companies companies={this.state.companies} removeCompany={this.removeCompany} />;
+  }
+
+  tabs(index) {
+    this.setState({
+      trackNewCompany: index === 0
+    })
+  }
+
   render() {
     return (
-      <div className="App">
-        <Companies companies={this.state.companies} removeCompany={this.removeCompany} />
-        <Search suggestionSelected={this.suggestionSelected} />
+      <div className="container">
+        <div className="container-header">
+          <div>Stock Tracker </div>
+          <div>
+            <a href="#" onClick={() => this.tabs(0)}>Track New Company</a>
+            <a href="#" onClick={() => this.tabs(1)}>Companies</a>
+          </div>
+        </div>
+        <div class="container-body">
+          {this.renderContent()}
+        </div>
       </div>
     );
   }

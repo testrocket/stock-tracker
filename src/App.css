@@ -1,0 +1,42 @@
+.container {
+  max-width: 800px;
+  margin: 10px  auto;
+  display: flex;
+  flex-direction: column;
+  font-family: 'ArialMT', 'Arial';
+}
+
+.container-header {
+  display: flex;
+  border-width: 0px;
+  width: 900px;
+  background-color: rgba(242, 242, 242, 1);
+  box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(204, 204, 204, 1);
+  border-radius: 4px;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  font-style: normal;
+  font-size: 18px;
+  color: #666666;
+  padding: 10px;
+  text-align: center;
+}
+
+.container-header > * {
+  margin-right: 80px;
+}
+
+.container-header a:active, a:link, a:hover, a:visited {
+  text-decoration: none;
+  cursor: pointer;
+  color: #0099FF;
+  margin-right: 50px;
+}
+
+.container-body {
+  margin: 20px 0;
+}

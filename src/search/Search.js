@@ -39,7 +39,8 @@ class Search extends Component {
   render() {
     return (
       <div className="search">
-        <div>Company symbol</div>
+        <div className="search-title">Track New Company</div>
+        <div className="search-symbol">Company symbol</div>
         <div>
           <input
             placeholder="Company symbol"
