@@ -11,7 +11,7 @@ class Search extends Component {
 
     this.state = {
       query: '',
-      results: []
+      suggestions: []
     };
 
     this.handleInputChangeDounced = debounce(this.handleInputChange, 200);
@@ -19,9 +19,9 @@ class Search extends Component {
 
   search() {
     CompanySearchService.searchCompany(this.state.query)
-      .then((results) => {
+      .then((suggestions) => {
         this.setState({
-          results: results.bestMatches
+          suggestions: suggestions.bestMatches
         })
       }).catch(error => console.log('Failed to fetch company: ', { error }));
   }
@@ -49,7 +49,7 @@ class Search extends Component {
           />
         </div>
         <div>Provide the stock exchange symbol of a company you want to track</div>
-        <Suggestions results={this.state.results} suggestionSelected={this.props.suggestionSelected} />
+        <Suggestions suggestions={this.state.suggestions} suggestionSelected={this.props.suggestionSelected} />
       </div>
     )
   }

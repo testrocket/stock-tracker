@@ -8,8 +8,10 @@
 }
 
 .search input {
-  font-size: 20px;
-  width: 400px;
+  width: 379px;
+  font-family: 'ArialMT', 'Arial';
+  font-size: 18px;
+  padding: 5px;
 }
 
 .search-title {
