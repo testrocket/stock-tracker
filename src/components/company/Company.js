@@ -33,9 +33,9 @@ export default class Company extends React.Component {
           </div>
           <div className="company-details-row company-details-country">
             <span>{company.region} </span>
-            <span>{company.marketOpen}</span>
+            <span>{company.open}</span>
             <span> - </span>
-            <span>{company.marketClose} </span>
+            <span>{company.close} </span>
             <span>{company.timezone}</span>
           </div>
           {this.renderCompanyQuote(company)}
