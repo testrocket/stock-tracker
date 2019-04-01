@@ -25,9 +25,9 @@ export default class Company extends React.Component {
           </div>
           <div className="company-details-row company-details-price">
             <span>{company.price}</span>
-            <span> </span>
-            <span>{company.currency}</span>
+            <span> {company.currency}</span>
             <QuoteChange change={company.change} changePercent={company.changePercent} />
+            <span>Closed: {company.latestTradingDay}</span>
           </div>
         </div>
         <div>

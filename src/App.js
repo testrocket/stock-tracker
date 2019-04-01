@@ -22,12 +22,14 @@ class App extends Component {
 
   suggestionSelected = (company) => {
     const logoName = first(words(company['2. name']))
-    const promises = [LogoService.loadLogo(logoName),
-      CompanySearchService.globalQuote(company['1. symbol'])];
+    const promises = [
+      CompanySearchService.globalQuote(company['1. symbol']),
+      LogoService.loadLogo(logoName),
+    ];
 
     Promise.all(promises).then(results => {
-      const logoData = results[0];
-      const quote = results[1];
+      const quote = results[0];
+      const logoData = results[1];
       const firstLogoData = first(logoData);
 
       CompanyStorageService.addCompany({
@@ -41,6 +43,7 @@ class App extends Component {
         timezone: company['7. timezone'],
         currency: company['8. currency'],
         price: get(quote, ['Global Quote', '05. price']),
+        latestTradingDay: get(quote, ['Global Quote', '07. latest trading day']),
         change: get(quote, ['Global Quote', '09. change']),
         changePercent: get(quote, ['Global Quote', '10. change percent']),
       });

@@ -12,7 +12,7 @@ export default class Companies extends React.Component {
     }
     return (
       <div className="companies-empty">There are no companies yet.&nbsp;
-        <a href="">Track your first company.</a>
+        <a href="/">Track your first company.</a>
       </div>);
   }
 
