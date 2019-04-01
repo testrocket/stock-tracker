@@ -5,7 +5,7 @@ import Search from './search/Search';
 import CompanyService from './components/company/CompanyService';
 import LogoService from './search/LogoService';
 import CompanySearchService from './search/CompanySearchService';
-import { get, first } from 'lodash';
+import { get, first, words } from 'lodash';
 
 class App extends Component {
   constructor(props) {
@@ -21,8 +21,9 @@ class App extends Component {
   }
 
   suggestionSelected = (company) => {
-    const promises = [LogoService.loadLogo(company['2. name']),
-    CompanySearchService.globalQuote(company['1. symbol'])];
+    const logoName = first(words(company['2. name']))
+    const promises = [LogoService.loadLogo(logoName),
+      CompanySearchService.globalQuote(company['1. symbol'])];
 
     Promise.all(promises).then(results => {
       const logoData = results[0];
