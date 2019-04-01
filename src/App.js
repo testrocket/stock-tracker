@@ -2,49 +2,52 @@ import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/company/Companies';
 import Search from './search/Search';
-
-const companies = [
-  {
-    name: 'Google',
-    symbol: 'GOOG',
-    price: '100.0 USD',
-    country: 'United States',
-    marketOpen: "09:30",
-    marketClose: "16:00",
-    timezone: "UTC-04",
-    currency: "USD",
-    logo: 'https://logo.clearbit.com/abc.xyz'
-  },
-  {
-    name: 'Microsoft',
-    symbol: 'MSFT',
-    price: '110.0 USD',
-    country: 'United States',
-    marketOpen: "09:30",
-    marketClose: "16:00",
-    timezone: "UTC-04",
-    currency: "USD",
-    logo: 'https://logo.clearbit.com/microsoft.com'
-  },
-  { 
-    name: 'Amazon',
-    symbol: 'AMZN',
-    price: '190.0 USD',
-    country: 'United States',
-    marketOpen: "09:30",
-    marketClose: "16:00",
-    timezone: "UTC-04",
-    currency: "USD",
-    logo: 'https://logo.clearbit.com/amazon.com'
-  },
-];
+import CompanyService from './components/company/CompanyService';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      companies: CompanyService.loadCompanies()
+    };
+
+    this.suggestionSelected = this.suggestionSelected.bind(this);
+    this.removeCompany = this.removeCompany.bind(this);
+  }
+
+  suggestionSelected = (company) => {
+    CompanyService.addCompany({
+      logo: 'https://logo.clearbit.com/abc.xyz',
+      symbol: company['1. symbol'],
+      name: company['2. name'],
+      type: company['3. type'],
+      region: company['4. region'],
+      marketOpen: company['5. marketOpen'],
+      marketClose: company['6. marketClose'],
+      timezone: company['7. timezone'],
+      currency: company['8. currency'],
+      price: 100
+    });
+
+    this.setState({
+      companies: CompanyService.loadCompanies()
+    });
+  }
+
+  removeCompany(company) {
+    CompanyService.removeCompany(company);
+
+    this.setState({
+      companies: CompanyService.loadCompanies()
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <Companies companies={companies}/>
-        <Search />
+        <Companies companies={this.state.companies} removeCompany={this.removeCompany}/>
+        <Search suggestionSelected={this.suggestionSelected}/>
       </div>
     );
   }

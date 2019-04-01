@@ -15,7 +15,7 @@ class Search extends Component {
       results: []
     };
 
-    this.handleInputChangeDounced = debounce(this.handleInputChange, 300);
+    this.handleInputChangeDounced = debounce(this.handleInputChange, 200);
   }
 
   search() {
@@ -40,10 +40,6 @@ class Search extends Component {
     })
   }
 
-  suggestionSelected(suggestion) {
-    console.log('select suggestion ', suggestion);
-  }
-
   render() {
     return (
       <div className="search">
@@ -53,7 +49,7 @@ class Search extends Component {
             ref={input => this.inputField = input}
             onChange={() => this.handleInputChangeDounced()}
           />
-          <Suggestions results={this.state.results} suggestionSelected={this.suggestionSelected} />
+          <Suggestions results={this.state.results} suggestionSelected={this.props.suggestionSelected} />
         </form>
       </div>
     )

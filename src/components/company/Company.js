@@ -16,7 +16,7 @@ export default class Company extends React.Component {
             <span>{company.symbol}</span>
           </div>
           <div className="company-details-row company-details-country">
-            <span>{company.country} </span>
+            <span>{company.region} </span>
             <span>{company.marketOpen}</span>
             <span> - </span>
             <span>{company.currency} </span>
