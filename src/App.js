@@ -28,7 +28,6 @@ class App extends Component {
     Promise.all(promises).then(results => {
       const logoData = results[0];
       const quote = results[1];
-      console.log(quote);
       const firstLogoData = first(logoData);
 
       CompanyStorageService.addCompany({
@@ -70,7 +69,7 @@ class App extends Component {
 
   tabs(index) {
     this.setState({
-      trackNewCompany: index === 0
+      trackNewCompany: !!index
     })
   }
 
