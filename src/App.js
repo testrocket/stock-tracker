@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/company/Companies';
-import Search from './search/Search';
+import Search from './components/search/Search';
 import CompanyStorageService from './services/CompanyStorageService';
 import LogoService from './services/LogoService';
-import CompanySearchService from './services/CompanySearchService';
+import CompanySearchService from './components/search/CompanySearchService';
 import { get, first, words } from 'lodash';
 
 class App extends Component {
@@ -28,6 +28,7 @@ class App extends Component {
     Promise.all(promises).then(results => {
       const logoData = results[0];
       const quote = results[1];
+      console.log(quote);
       const firstLogoData = first(logoData);
 
       CompanyStorageService.addCompany({
@@ -40,7 +41,9 @@ class App extends Component {
         marketClose: company['6. marketClose'],
         timezone: company['7. timezone'],
         currency: company['8. currency'],
-        price: get(quote, ['Global Quote', '05. price']) || 0
+        price: get(quote, ['Global Quote', '05. price']),
+        change: get(quote, ['Global Quote', '09. change']),
+        changePercent: get(quote, ['Global Quote', '10. change percent']),
       });
 
       this.setState({

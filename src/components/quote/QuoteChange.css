@@ -1,0 +1,12 @@
+.quote-change {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.quote-change-low {
+  color: red;
+}
+
+.quote-change-high {
+  color: green;
+}

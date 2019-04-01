@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Suggestions from './Suggestions';
 import './Search.css'
 import { debounce } from 'lodash';
-import CompanySearchService from '../services/CompanySearchService';
+import CompanySearchService from './CompanySearchService';
 
 class Search extends Component {
 
@@ -46,7 +46,7 @@ class Search extends Component {
             placeholder="Company symbol"
             ref={input => this.inputField = input}
             onChange={() => this.handleInputChangeDounced()}
-            spellcheck="false"
+            spellCheck="false"
           />
         </div>
         <div>Provide the stock exchange symbol of a company you want to track</div>

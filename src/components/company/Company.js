@@ -1,5 +1,6 @@
 import React from 'react';
 import './Company.css';
+import QuoteChange from '../quote/QuoteChange';
 
 export default class Company extends React.Component {
 
@@ -22,7 +23,9 @@ export default class Company extends React.Component {
             <span>{company.currency} </span>
             <span>{company.timezone}</span>
           </div>
-          <div className="company-details-row company-details-price">{company.price}</div>
+          <div className="company-details-row company-details-price">{company.price}
+            <QuoteChange change={company.change} changePercent={company.changePercent} />
+          </div>
         </div>
         <div>
           <button onClick={() => this.props.removeCompany(company)}>x</button>
