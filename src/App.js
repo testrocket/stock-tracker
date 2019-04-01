@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/company/Companies';
 import Search from './search/Search';
-import CompanyService from './services/CompanyService';
+import CompanyStorageService from './services/CompanyStorageService';
 import LogoService from './services/LogoService';
 import CompanySearchService from './services/CompanySearchService';
 import { get, first, words } from 'lodash';
@@ -12,7 +12,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      companies: CompanyService.loadCompanies(),
+      companies: CompanyStorageService.loadCompanies(),
       trackNewCompany: true,
     };
 
@@ -30,7 +30,7 @@ class App extends Component {
       const quote = results[1];
       const firstLogoData = first(logoData);
 
-      CompanyService.addCompany({
+      CompanyStorageService.addCompany({
         logo: firstLogoData ? firstLogoData.logo : '',
         symbol: company['1. symbol'],
         name: company['2. name'],
@@ -44,17 +44,17 @@ class App extends Component {
       });
 
       this.setState({
-        companies: CompanyService.loadCompanies(),
+        companies: CompanyStorageService.loadCompanies(),
         trackNewCompany: false
       });
     })
   }
 
   removeCompany(company) {
-    CompanyService.removeCompany(company);
+    CompanyStorageService.removeCompany(company);
 
     this.setState({
-      companies: CompanyService.loadCompanies()
+      companies: CompanyStorageService.loadCompanies()
     });
   }
 
