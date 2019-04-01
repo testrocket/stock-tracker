@@ -5,7 +5,7 @@ import Search from './components/search/Search';
 import CompanyStorageService from './services/CompanyStorageService';
 import LogoService from './services/LogoService';
 import CompanySearchService from './components/search/CompanySearchService';
-import { get, first, words } from 'lodash';
+import { get, first, last, words, mapKeys } from 'lodash';
 
 class App extends Component {
   constructor(props) {
@@ -20,33 +20,24 @@ class App extends Component {
     this.removeCompany = this.removeCompany.bind(this);
   }
 
-  suggestionSelected = (company) => {
-    const logoName = first(words(company['2. name']))
+  suggestionSelected = (companySuggestion) => {
+    const logoName = first(words(companySuggestion['2. name']))
     const promises = [
-      CompanySearchService.globalQuote(company['1. symbol']),
+      CompanySearchService.globalQuote(companySuggestion['1. symbol']),
       LogoService.loadLogo(logoName),
     ];
 
     Promise.all(promises).then(results => {
       const quote = results[0];
       const logoData = results[1];
-      const firstLogoData = first(logoData);
 
-      CompanyStorageService.addCompany({
-        logo: firstLogoData ? firstLogoData.logo : '',
-        symbol: company['1. symbol'],
-        name: company['2. name'],
-        type: company['3. type'],
-        region: company['4. region'],
-        marketOpen: company['5. marketOpen'],
-        marketClose: company['6. marketClose'],
-        timezone: company['7. timezone'],
-        currency: company['8. currency'],
-        price: get(quote, ['Global Quote', '05. price']),
-        latestTradingDay: get(quote, ['Global Quote', '07. latest trading day']),
-        change: get(quote, ['Global Quote', '09. change']),
-        changePercent: get(quote, ['Global Quote', '10. change percent']),
-      });
+      const keyExtractor = (value, key) => last(words(key));
+
+      let company = mapKeys(companySuggestion, keyExtractor);
+      company.quote = mapKeys(quote['Global Quote'], keyExtractor);
+      company.logo = get(logoData, '[0].logo');
+
+      CompanyStorageService.addCompany(company);
 
       this.setState({
         companies: CompanyStorageService.loadCompanies(),
