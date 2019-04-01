@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import Suggestions from './Suggestions';
 import './Search.css'
 import { debounce } from 'lodash';
-
-const API_KEY = 'blah';
+import CompanySearchService from './CompanySearchService';
 
 class Search extends Component {
 
@@ -19,22 +18,19 @@ class Search extends Component {
   }
 
   search() {
-    const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${this.state.query}&apikey=${API_KEY}`;
-
-    fetch(url)
-      .then((resp) => resp.json())
+    CompanySearchService.searchCompany(this.state.query)
       .then((results) => {
         this.setState({
           results: results.bestMatches
         })
-      });
+      }).catch(error => console.log('Failed to fetch company: ', {error}));
   }
 
   handleInputChange() {
     this.setState({
-      query: this.inputField.value
+      query: this.inputField.value || ''
     }, () => {
-      if (this.state.query && this.state.query.length > 1) {
+      if (this.state.query.length) {
         this.search();
       }
     })

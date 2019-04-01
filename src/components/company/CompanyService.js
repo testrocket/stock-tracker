@@ -1,20 +1,20 @@
 const COMPANIES_KEY = 'stock-tracker-companies';
 
-export default class CompanyService {
+export default {
 
-  static loadCompanies() {
+  loadCompanies() {
     return JSON.parse(localStorage.getItem(COMPANIES_KEY)) || [];
-  }
+  },
 
-  static addCompany(company) {
-    let companies = CompanyService.loadCompanies();
+  addCompany(company) {
+    let companies = this.loadCompanies();
     companies.push(company);
 
     localStorage.setItem(COMPANIES_KEY, JSON.stringify(companies));
-  }
+  },
 
-  static removeCompany(company) {
-    let companies = CompanyService.loadCompanies()
+  removeCompany(company) {
+    let companies = this.loadCompanies()
       .filter(c => c.symbol !== company.symbol);
 
     localStorage.setItem(COMPANIES_KEY, JSON.stringify(companies));

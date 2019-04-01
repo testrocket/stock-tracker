@@ -3,6 +3,8 @@ import './App.css';
 import Companies from './components/company/Companies';
 import Search from './search/Search';
 import CompanyService from './components/company/CompanyService';
+import LogoService from './search/LogoService';
+import { first } from 'lodash';
 
 class App extends Component {
   constructor(props) {
@@ -17,21 +19,25 @@ class App extends Component {
   }
 
   suggestionSelected = (company) => {
-    CompanyService.addCompany({
-      logo: 'https://logo.clearbit.com/abc.xyz',
-      symbol: company['1. symbol'],
-      name: company['2. name'],
-      type: company['3. type'],
-      region: company['4. region'],
-      marketOpen: company['5. marketOpen'],
-      marketClose: company['6. marketClose'],
-      timezone: company['7. timezone'],
-      currency: company['8. currency'],
-      price: 100
-    });
+    LogoService.loadLogo(company['2. name']).then(logoData => {
+      const firstLogoData = first(logoData);
 
-    this.setState({
-      companies: CompanyService.loadCompanies()
+      CompanyService.addCompany({
+        logo: firstLogoData ? firstLogoData.logo : '',
+        symbol: company['1. symbol'],
+        name: company['2. name'],
+        type: company['3. type'],
+        region: company['4. region'],
+        marketOpen: company['5. marketOpen'],
+        marketClose: company['6. marketClose'],
+        timezone: company['7. timezone'],
+        currency: company['8. currency'],
+        price: 100
+      });
+
+      this.setState({
+        companies: CompanyService.loadCompanies()
+      });
     });
   }
 
@@ -46,8 +52,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Companies companies={this.state.companies} removeCompany={this.removeCompany}/>
-        <Search suggestionSelected={this.suggestionSelected}/>
+        <Companies companies={this.state.companies} removeCompany={this.removeCompany} />
+        <Search suggestionSelected={this.suggestionSelected} />
       </div>
     );
   }
