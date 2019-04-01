@@ -46,6 +46,7 @@ class Search extends Component {
             placeholder="Company symbol"
             ref={input => this.inputField = input}
             onChange={() => this.handleInputChangeDounced()}
+            spellcheck="false"
           />
         </div>
         <div>Provide the stock exchange symbol of a company you want to track</div>
