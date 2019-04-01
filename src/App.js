@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/company/Companies';
 import Search from './search/Search';
-import CompanyService from './components/company/CompanyService';
-import LogoService from './search/LogoService';
-import CompanySearchService from './search/CompanySearchService';
+import CompanyService from './services/CompanyService';
+import LogoService from './services/LogoService';
+import CompanySearchService from './services/CompanySearchService';
 import { get, first, words } from 'lodash';
 
 class App extends Component {
