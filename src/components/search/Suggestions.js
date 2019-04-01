@@ -6,8 +6,8 @@ const Suggestions = (props) => {
     <li key={index} onClick={() => props.suggestionSelected(suggestion)}>
       <button className="track-button">Track</button> {suggestion['2. name']}
     </li>
-  ))
-  return <ul className="suggestions-list">{options}</ul>
+  ));
+  return <ul className="suggestions-list">{options}</ul>;
 }
 
 export default Suggestions

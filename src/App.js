@@ -33,13 +33,9 @@ class App extends Component {
 
       const keyExtractor = (value, key) => last(words(key)).toLowerCase();
 
-      console.log(companySuggestion);
-
       let company = mapKeys(companySuggestion, keyExtractor);
       company.quote = mapKeys(quote['Global Quote'], keyExtractor);
       company.logo = get(logoData, '[0].logo');
-
-      console.log(company);
 
       CompanyStorageService.addCompany(company);
 
