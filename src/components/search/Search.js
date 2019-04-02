@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Suggestions from './Suggestions';
 import './Search.css'
 import { debounce } from 'lodash';
-import CompanySearchService from '../../services/CompanySearchService';
+import CompanyService from '../../services/CompanyService';
 
 class Search extends Component {
 
@@ -18,7 +18,7 @@ class Search extends Component {
   }
 
   search() {
-    CompanySearchService.searchCompany(this.state.query)
+    CompanyService.searchCompany(this.state.query)
       .then((suggestions) => {
         this.setState({
           suggestions: suggestions.bestMatches

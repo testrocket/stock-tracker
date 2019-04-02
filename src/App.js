@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import Companies from './components/company/Companies';
 import Search from './components/search/Search';
+import CompanyService from './services/CompanyService';
 import CompanyStorageService from './services/CompanyStorageService';
-import LogoService from './services/LogoService';
-import CompanySearchService from './services/CompanySearchService';
-import { get, first, last, words, mapKeys } from 'lodash';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    const companies = CompanyStorageService.loadCompanies();
     this.state = {
       companies: CompanyStorageService.loadCompanies(),
       trackNewCompany: true,
@@ -22,31 +19,15 @@ class App extends Component {
   }
 
   suggestionSelected = (companySuggestion) => {
-    const logoName = first(words(companySuggestion['2. name']))
-    const promises = [
-      CompanySearchService.globalQuote(companySuggestion['1. symbol']),
-      LogoService.loadLogo(logoName),
-    ];
+    CompanyService.createCompany(companySuggestion)
+      .then(company => {
+        CompanyStorageService.addCompany(company);
 
-    Promise.all(promises).then(results => {
-      const company = this.createCompany(companySuggestion, ...results);
-
-      CompanyStorageService.addCompany(company);
-
-      this.setState({
-        companies: CompanyStorageService.loadCompanies(),
-        trackNewCompany: false
+        this.setState({
+          companies: CompanyStorageService.loadCompanies(),
+          trackNewCompany: false
+        });
       });
-    })
-  }
-
-  createCompany(companySuggestion, quote, logoData) {
-    const keyExtractor = (value, key) => last(words(key)).toLowerCase();
-
-    let company = mapKeys(companySuggestion, keyExtractor);
-    company.quote = mapKeys(quote['Global Quote'], keyExtractor);
-    company.logo = get(logoData, '[0].logo');
-    return company;
   }
 
   removeCompany(company) {
