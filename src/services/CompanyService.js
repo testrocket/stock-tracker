@@ -38,7 +38,7 @@ export default {
 
     return Promise.all(promises).then(results => {
       return this._createCompany(companySuggestion, ...results);
-    })
+    });
   },
 
   _createCompany(companySuggestion, quote, logoData) {
@@ -46,9 +46,5 @@ export default {
     company.quote = mapKeys(quote['Global Quote'], companyKeyExtractor);
     company.logo = get(logoData, '[0].logo');
     return company;
-  }
-
-  ,updateCompanyQuote(company) {
-    
   }
 }
