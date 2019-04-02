@@ -28,8 +28,7 @@ class App extends Component {
       .then(company => {
         CompanyStorageService.addCompany(company);
         return StockTrackingService.update();
-      })
-      .then(companies => {
+      }).then(companies => {
         this.setState({
           companies,
           trackNewCompany: false,

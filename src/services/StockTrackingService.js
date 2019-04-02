@@ -15,6 +15,6 @@ export default {
       return Promise.resolve(companiesWithUpdatedQuotes);
     }).catch(error => {
       return Promise.reject(Error(error.message));
-    });;
+    });
   }
 }
