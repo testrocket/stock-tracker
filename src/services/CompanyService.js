@@ -43,8 +43,12 @@ export default {
 
   _createCompany(companySuggestion, quote, logoData) {
     let company = mapKeys(companySuggestion, companyKeyExtractor);
-    company.quote = mapKeys(quote['Global Quote'], companyKeyExtractor);
     company.logo = get(logoData, '[0].logo');
+    return this.updateQuoteChange(company, quote);
+  },
+
+  updateQuoteChange(company, quote) {
+    company.quote = mapKeys(quote['Global Quote'], companyKeyExtractor);
     return company;
   }
 }

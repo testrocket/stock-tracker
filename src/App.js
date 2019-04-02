@@ -4,13 +4,14 @@ import Companies from './components/company/Companies';
 import Search from './components/search/Search';
 import CompanyService from './services/CompanyService';
 import CompanyStorageService from './services/CompanyStorageService';
+import StockTrackingService from './services/StockTrackingService';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      companies: CompanyStorageService.loadCompanies(),
+      companies: [],
       trackNewCompany: true,
     };
 
@@ -18,24 +19,38 @@ class App extends Component {
     this.removeCompany = this.removeCompany.bind(this);
   }
 
+  componentDidMount() {
+    StockTrackingService.update()
+      .then(companies => {
+        this.setState({
+          companies
+        })
+      });
+  }
+
   suggestionSelected = (companySuggestion) => {
     CompanyService.createCompany(companySuggestion)
       .then(company => {
         CompanyStorageService.addCompany(company);
-
+        return StockTrackingService.update();
+      })
+      .then(companies => {
         this.setState({
-          companies: CompanyStorageService.loadCompanies(),
-          trackNewCompany: false
-        });
+          companies,
+          trackNewCompany: false,
+        })
       });
   }
 
   removeCompany(company) {
     CompanyStorageService.removeCompany(company);
 
-    this.setState({
-      companies: CompanyStorageService.loadCompanies()
-    });
+    StockTrackingService.update()
+      .then(companies => {
+        this.setState({
+          companies
+        });
+      });
   }
 
   renderContent() {
