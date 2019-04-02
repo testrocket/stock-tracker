@@ -1,6 +1,6 @@
 import React from 'react';
 import './Company.css';
-import QuoteChange from '../quote/QuoteChange';
+import QuoteChange from './quote/QuoteChange';
 import { isEmpty } from 'lodash';
 
 export default class Company extends React.Component {

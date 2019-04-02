@@ -4,13 +4,14 @@ import Companies from './components/company/Companies';
 import Search from './components/search/Search';
 import CompanyStorageService from './services/CompanyStorageService';
 import LogoService from './services/LogoService';
-import CompanySearchService from './components/search/CompanySearchService';
+import CompanySearchService from './services/CompanySearchService';
 import { get, first, last, words, mapKeys } from 'lodash';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
+    const companies = CompanyStorageService.loadCompanies();
     this.state = {
       companies: CompanyStorageService.loadCompanies(),
       trackNewCompany: true,
@@ -28,14 +29,7 @@ class App extends Component {
     ];
 
     Promise.all(promises).then(results => {
-      const quote = results[0];
-      const logoData = results[1];
-
-      const keyExtractor = (value, key) => last(words(key)).toLowerCase();
-
-      let company = mapKeys(companySuggestion, keyExtractor);
-      company.quote = mapKeys(quote['Global Quote'], keyExtractor);
-      company.logo = get(logoData, '[0].logo');
+      const company = this.createCompany(companySuggestion, ...results);
 
       CompanyStorageService.addCompany(company);
 
@@ -44,6 +38,15 @@ class App extends Component {
         trackNewCompany: false
       });
     })
+  }
+
+  createCompany(companySuggestion, quote, logoData) {
+    const keyExtractor = (value, key) => last(words(key)).toLowerCase();
+
+    let company = mapKeys(companySuggestion, keyExtractor);
+    company.quote = mapKeys(quote['Global Quote'], keyExtractor);
+    company.logo = get(logoData, '[0].logo');
+    return company;
   }
 
   removeCompany(company) {

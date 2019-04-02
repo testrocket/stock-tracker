@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Suggestions from './Suggestions';
 import './Search.css'
 import { debounce } from 'lodash';
-import CompanySearchService from './CompanySearchService';
+import CompanySearchService from '../../services/CompanySearchService';
 
 class Search extends Component {
 
