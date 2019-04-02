@@ -20,12 +20,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    StockTrackingService.update()
-      .then(companies => {
-        this.setState({
-          companies
-        })
-      });
+    this.updateStockTracking();
   }
 
   suggestionSelected = (companySuggestion) => {
@@ -45,11 +40,13 @@ class App extends Component {
   removeCompany(company) {
     CompanyStorageService.removeCompany(company);
 
+    this.updateStockTracking();
+  }
+
+  updateStockTracking() {
     StockTrackingService.update()
       .then(companies => {
-        this.setState({
-          companies
-        });
+        this.setState({ companies });
       });
   }
 
@@ -61,9 +58,7 @@ class App extends Component {
   }
 
   tabs(index) {
-    this.setState({
-      trackNewCompany: index === 0
-    })
+    this.setState({ trackNewCompany: index === 0 });
   }
 
   render() {

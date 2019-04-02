@@ -30,21 +30,17 @@ export default {
   },
 
   createCompany(companySuggestion) {
-    const logoName = first(words(companySuggestion['2. name']))
-    const promises = [
-      this.globalQuote(companySuggestion['1. symbol']),
-      LogoService.loadLogo(logoName),
-    ];
-
-    return Promise.all(promises).then(results => {
-      return this._createCompany(companySuggestion, ...results);
-    });
+    const logoName = first(words(companySuggestion['2. name']));
+    return LogoService.loadLogo(logoName)
+      .then(logo => {
+        return this._createCompany(companySuggestion, logo);
+      });
   },
 
-  _createCompany(companySuggestion, quote, logoData) {
+  _createCompany(companySuggestion, logo) {
     let company = mapKeys(companySuggestion, companyKeyExtractor);
-    company.logo = get(logoData, '[0].logo');
-    return this.updateQuoteChange(company, quote);
+    company.logo = get(logo, '[0].logo');
+    return company;
   },
 
   updateQuoteChange(company, quote) {
